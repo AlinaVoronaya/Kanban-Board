@@ -1,0 +1,28 @@
+.column {
+  flex-grow: 1;
+  background-color: rgba(255,255,255, 0.5);
+  width: 20%;
+  padding: 10px;
+  &__header {
+    padding: 10px 0;
+    background-color: rgba(255,255,255, 0.8);
+    margin-bottom: 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+  &__cards {
+    background-color: rgba(255,255,255, 0.8);
+    padding: 10px;
+    margin-bottom: 20px;
+    word-wrap: break-word;
+  }
+  &__add-card {
+    border: rgba(170, 171, 171, 0.6) solid 1px;
+    border-radius: 5px;
+    padding: 5px 15px;
+    cursor: pointer;
+    &:hover {
+      background-color: #fff;
+    }
+  }
+}
