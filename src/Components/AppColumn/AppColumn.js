@@ -2,11 +2,7 @@ import React from "react";
 import "./AppColumn.scss";
 import {Card} from "./Card/Card";
 
-export const AppColumn = ({cards, title}) => {
-
-    const renderHeaderInput = () => {
-
-    }
+export const AppColumn = ({cards, title, setModal}) => {
 
     return (
         <div className="column">
@@ -21,7 +17,7 @@ export const AppColumn = ({cards, title}) => {
                     />
                 ))}
             </div>
-            <button className="column__add-card">+ Add Card</button>
+            <button className="column__add-card" onClick={() => setModal(true)}>+ Add Card</button>
         </div>
     )
 }

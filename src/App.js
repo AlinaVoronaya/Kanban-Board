@@ -1,36 +1,32 @@
 import React, {useState} from "react";
 import './App.scss';
 import {AppColumn} from "./Components/AppColumn/AppColumn";
-
-const stateTodo = 0;
-const stateInProgress = 1;
-const stateTesting = 2;
-const stateDone = 3;
+import {Modal} from "./Components/Modal/Modal";
 
 const defaultCards = [
     {
         id: 1,
         title: 'Important',
         text: 'First task',
-        state: stateTodo
+        columnId: 1
     },
     {
         id: 2,
         title: 'For school',
         text: 'Second task',
-        state: stateInProgress
+        columnId: 2
     },
     {
         id: 3,
         title: 'Work',
         text: 'Third task',
-        state: stateTesting
+        columnId: 3
     },
     {
         id: 4,
         title: 'Work',
         text: 'Fourth task',
-        state: stateDone
+        columnId: 4
     }
 ];
 
@@ -38,22 +34,18 @@ const defaultColumns = [
     {
         id: 1,
         title: "TODO",
-        state: stateTodo
     },
     {
         id: 2,
         title: "In Progress",
-        state: stateInProgress
     },
     {
         id: 3,
         title: "Testing",
-        state: stateTesting
     },
     {
         id: 4,
         title: "Done",
-        state: stateDone
     },
 ]
 
@@ -61,22 +53,29 @@ const defaultColumns = [
 function App() {
 
     const [cards, setCards] = useState(defaultCards);
+    const [columns, setColumns] = useState(defaultColumns);
+    const [modal, setModal] = useState(true);
 
-    const filterByState = (cards, state) => {
-            return cards.filter(item => item.state === state)
+    const filterByColumn = (cards, columnId) => {
+            return cards.filter(item => item.columnId === columnId)
     }
 
     return (
         <div className="app">
             <div className="app__boards">
-                {defaultColumns.map( column => (
+                {columns.map( column => (
                     <AppColumn
-                        cards={filterByState(cards, column.state)}
+                        cards={filterByColumn(cards, column.id)}
                         title={column.title}
                         key={column.id}
+                        setModal={setModal}
                     />
                 ))}
             </div>
+            <Modal
+                modal={modal}
+                setModal={setModal}
+            />
         </div>
     );
 }
