@@ -54,21 +54,47 @@ function App() {
 
     const [cards, setCards] = useState(defaultCards);
     const [columns, setColumns] = useState(defaultColumns);
-    const [modal, setModal] = useState(true);
+    const [modal, setModal] = useState(false);
+
+    React.useEffect(() => {
+        setModal(true)
+    }, []);
+
+    const createCard = (title, text, columnId) => {
+        setCards([{
+            id: new Date(),
+            title,
+            text,
+            columnId
+        },
+            ...cards
+        ])
+    };
+
+    const updateCard = (id, title, text) => {
+        // todo написать код функции изменения данных карточки
+    };
+
+    const removeCard = id => {
+        setCards([...cards].filter(t => t.id !== id));
+    };
 
     const filterByColumn = (cards, columnId) => {
-            return cards.filter(item => item.columnId === columnId)
+        return cards.filter(item => item.columnId === columnId)
     }
 
     return (
         <div className="app">
             <div className="app__boards">
-                {columns.map( column => (
+                {columns.map(column => (
                     <AppColumn
                         cards={filterByColumn(cards, column.id)}
                         title={column.title}
+                        id={column.id}
                         key={column.id}
-                        setModal={setModal}
+                        removeCard={removeCard}
+                        createCard={createCard}
+                        updateCard={updateCard}
                     />
                 ))}
             </div>
