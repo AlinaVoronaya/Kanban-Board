@@ -55,6 +55,7 @@ function App() {
     const [cards, setCards] = useState(defaultCards);
     const [columns, setColumns] = useState(defaultColumns);
     const [modal, setModal] = useState(false);
+    const [modalName, setModalName] = useState('hello');
 
     React.useEffect(() => {
         setModal(true)
@@ -92,6 +93,7 @@ function App() {
                         title={column.title}
                         id={column.id}
                         key={column.id}
+                        modalName={modalName}
                         removeCard={removeCard}
                         createCard={createCard}
                         updateCard={updateCard}
@@ -101,6 +103,7 @@ function App() {
             <Modal
                 modal={modal}
                 setModal={setModal}
+                setModalName={setModalName}
             />
         </div>
     );
