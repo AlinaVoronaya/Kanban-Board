@@ -2,10 +2,12 @@ import React, {useState} from "react";
 import "./Card.scss";
 import {CardDetailsModal} from "../../CardDetailsModal/CardDetailsModal";
 
-export const Card = ({card, removeCard, changeTitle, modalName}) => {
+export const Card = ({card, removeCard, changeTitle, modalName, updateCard}) => {
 
     const [cardDetailsModal, setCardDetailsModal] = useState(false);
     const [comments, setComments] = useState([]);
+    const [changeCardTitle, setChangeCardTitle] = useState(card.title);
+    const [isEditCardTitle, setIsEditCardTitle] = useState(false);
 
     const showCardDetailsModal = () => {
         setCardDetailsModal(true)
@@ -15,10 +17,12 @@ export const Card = ({card, removeCard, changeTitle, modalName}) => {
         setCardDetailsModal(false)
     }
 
+    let cardTitle = card.title;
+
     return (
         <div className="card">
             <div className="card__content" onClick={() => showCardDetailsModal()}>
-                <h2 className="card__title">{card.title}</h2>
+                <h2 className="card__title">{cardTitle}</h2>
                 <div className="card__task">{card.text}</div>
             </div>
             <div className="card__icons">
@@ -33,6 +37,7 @@ export const Card = ({card, removeCard, changeTitle, modalName}) => {
                 modalName={modalName}
                 comments={comments}
                 setComments={setComments}
+                updateCard={updateCard}
             />
         </div>
     )

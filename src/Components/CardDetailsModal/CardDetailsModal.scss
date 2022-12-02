@@ -19,7 +19,6 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    //flex-direction: column;
   }
   &__main {
     display: flex;
@@ -42,6 +41,15 @@
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 20px;
+    cursor: pointer;
+    border: rgba(170, 171, 171, 0.6) solid 1px;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  &__text {
+    border: rgba(170, 171, 171, 0.6) solid 1px;
+    border-radius: 5px;
+    padding: 5px;
   }
   &__input {
     border: rgba(170, 171, 171, 0.6) solid 1px;

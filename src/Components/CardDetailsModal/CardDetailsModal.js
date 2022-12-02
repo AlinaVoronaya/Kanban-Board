@@ -2,9 +2,11 @@ import React, {useState} from "react";
 import "./CardDetailsModal.scss";
 import {Comment} from "./Comment/Comment";
 
-export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, changeTitle, modalName, comments, setComments}) => {
+export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, changeTitle, modalName, comments, setComments, updateCard}) => {
 
     const [commentText, setCommentText] = useState('');
+    const [cardTitle, setCardTitle] = useState(card.title);
+    const [cardText, setCardText] = useState(card.text);
 
     const createComment = (commentText, modalName) => {
         setComments([{
@@ -16,10 +18,33 @@ export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, 
         ])
     };
 
-    const onSubmit = () => {
+    const onCommentSubmit = () => {
         createComment(commentText, modalName)
         setCommentText('')
     }
+
+    const onCardSubmit = (e) => {
+        e.preventDefault();
+        updateCard(card.id, cardTitle, cardText);
+    }
+
+    // const onKeyDown = (e) => {
+    //     if (e.key === "Enter") {
+    //         setIsEditCardTitle(false)
+    //     }
+    // }
+    //
+    // if (isEditCardTitle) {
+    //     cardTitle = <input
+    //         autoFocus
+    //         value={changeCardTitle}
+    //         onChange={e => setChangeCardTitle(e.target.value)}
+    //         onBlur={() => setIsEditCardTitle(false)}
+    //         onKeyDown={onKeyDown}
+    //         className="card-details-modal__title__input"/>
+    // } else {
+    //     cardTitle = <div onClick={() => setIsEditCardTitle(true)}>{changeCardTitle}</div>
+    // }
 
     return (
         <div className={cardDetailsModal ? "card-details-modal active" : "card-details-modal"}
@@ -30,13 +55,14 @@ export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, 
                         <p>в колонке: {changeTitle}</p>
                         <p>автор: {modalName}</p>
                     </div>
-                    <div className="card-details-modal__content">
-                        <h2 className="card-details-modal__title">{card.title}</h2>
-                        <p className="card-details-modal__text">{card.text}</p>
-                    </div>
+                    <form className="card-details-modal__content" onSubmit={onCardSubmit}>
+                        <input type="text" name="title" className="card-details-modal__title" required value={cardTitle} onChange={e => setCardTitle(e.target.value)}/>
+                        <textarea rows="3" name="text" className="card-details-modal__text" required value={cardText} onChange={e => setCardText(e.target.value)}/>
+                        <button type="submit">Save</button>
+                    </form>
                     <div className="card-details-modal__comment">
                         <input  type="text" className="card-details-modal__input" value={commentText} onChange={e => setCommentText(e.target.value)}/>
-                        <button className="card-details-modal__btn" onClick={onSubmit}>Add Comment</button>
+                        <button className="card-details-modal__btn" onClick={onCommentSubmit}>Add Comment</button>
                         {comments.map(comment => (
                             <Comment
                                 key={comment.id}

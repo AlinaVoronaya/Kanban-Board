@@ -55,11 +55,13 @@ function App() {
     const [cards, setCards] = useState(defaultCards);
     const [columns, setColumns] = useState(defaultColumns);
     const [modal, setModal] = useState(false);
-    const [modalName, setModalName] = useState('hello');
+    const [modalName, setModalName] = useState('unknown');
 
     React.useEffect(() => {
         setModal(true)
     }, []);
+
+
 
     const createCard = (title, text, columnId) => {
         setCards([{
@@ -72,8 +74,19 @@ function App() {
         ])
     };
 
+    const updateUserName = (id, title) => {
+        const copy = [...columns]
+        const current = copy.find(t => t.id === id)
+        current.title = title
+        setColumns(copy)
+    };
+
     const updateCard = (id, title, text) => {
-        // todo написать код функции изменения данных карточки
+        const copy = [...cards]
+        const current = copy.find(t => t.id === id)
+        current.title = title
+        current.text = text
+        setCards(copy)
     };
 
     const removeCard = id => {
@@ -90,6 +103,7 @@ function App() {
                 {columns.map(column => (
                     <AppColumn
                         cards={filterByColumn(cards, column.id)}
+                        column={column}
                         title={column.title}
                         id={column.id}
                         key={column.id}
@@ -97,6 +111,7 @@ function App() {
                         removeCard={removeCard}
                         createCard={createCard}
                         updateCard={updateCard}
+                        updateUserName={updateUserName}
                     />
                 ))}
             </div>

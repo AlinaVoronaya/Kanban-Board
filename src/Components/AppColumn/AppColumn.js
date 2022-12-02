@@ -3,7 +3,7 @@ import "./AppColumn.scss";
 import {Card} from "./Card/Card";
 import {CardModal} from "../CardModal/CardModal";
 
-export const AppColumn = ({cards, title, createCard, removeCard, id, modalName}) => {
+export const AppColumn = ({cards, column, title, createCard, removeCard, id, modalName, updateCard, updateUserName}) => {
 
     const [changeTitle, setChangeTitle] = useState(title);
     const [isEditTitle, setIsEditTitle] = useState(false);
@@ -21,7 +21,8 @@ export const AppColumn = ({cards, title, createCard, removeCard, id, modalName})
 
     const onKeyDown = (e) => {
         if (e.key === "Enter") {
-            setIsEditTitle(false)
+            updateUserName(column.id, changeTitle);
+            setIsEditTitle(false);
         }
     }
 
@@ -51,6 +52,7 @@ export const AppColumn = ({cards, title, createCard, removeCard, id, modalName})
                         removeCard={removeCard}
                         changeTitle={changeTitle}
                         modalName={modalName}
+                        updateCard={updateCard}
                     />
                 ))}
             </div>
