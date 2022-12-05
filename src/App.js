@@ -97,6 +97,7 @@ function App() {
             id: new Date(),
             title,
             text,
+            comments: [],
             columnId
         },
             ...cards
