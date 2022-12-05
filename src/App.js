@@ -69,9 +69,7 @@ function App() {
         JSON.parse(localStorage.getItem("columns")) || defaultColumns
     );
     const [userNameModalVisible, setUserNameModalVisible] = useState(false);
-    const [username, setUsername] = useState(
-        JSON.parse(localStorage.getItem("username")) || 'unknown'
-    );
+    const [username, setUsername] = useState(JSON.parse(localStorage.getItem("username")));
 
 
     React.useEffect(() => {
@@ -87,7 +85,10 @@ function App() {
     }, [username]);
 
     React.useEffect(() => {
-        setUserNameModalVisible(true)
+        const value = JSON.parse(localStorage.getItem("username"));
+        if (value === "") {
+            setUserNameModalVisible(true)
+        }
     }, []);
 
 
