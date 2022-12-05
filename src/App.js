@@ -8,25 +8,35 @@ const defaultCards = [
         id: 1,
         title: 'Important',
         text: 'First task',
-        columnId: 1
+        columnId: 1,
+        comments: []
     },
     {
         id: 2,
         title: 'For school',
         text: 'Second task',
-        columnId: 2
+        columnId: 2,
+        comments: [
+            {
+                id: 1,
+                username: "Вася",
+                text: "LOL"
+            }
+        ]
     },
     {
         id: 3,
         title: 'Work',
         text: 'Third task',
-        columnId: 3
+        columnId: 3,
+        comments: []
     },
     {
         id: 4,
         title: 'Work',
         text: 'Fourth task',
-        columnId: 4
+        columnId: 4,
+        comments: []
     }
 ];
 
@@ -62,9 +72,6 @@ function App() {
     const [username, setUsername] = useState(
         JSON.parse(localStorage.getItem("username")) || 'unknown'
     );
-    const [comments, setComments] = useState(
-        JSON.parse(localStorage.getItem("comments")) || []
-    );
 
 
     React.useEffect(() => {
@@ -78,9 +85,6 @@ function App() {
     React.useEffect(() => {
         localStorage.setItem("username", JSON.stringify(username))
     }, [username]);
-    React.useEffect(() => {
-        localStorage.setItem("comments", JSON.stringify(comments))
-    }, [comments]);
 
     React.useEffect(() => {
         setUserNameModalVisible(true)
@@ -113,6 +117,17 @@ function App() {
         setCards(copy)
     };
 
+    const addCommentToCard = (id, text) => {
+        const copy = [...cards]
+        const current = copy.find(t => t.id === id)
+        current.comments.push({
+            id: new Date(),
+            username,
+            text
+        })
+        setCards(copy)
+    }
+
     const removeCard = id => {
         setCards([...cards].filter(t => t.id !== id));
     };
@@ -131,13 +146,12 @@ function App() {
                         title={column.title}
                         id={column.id}
                         key={column.id}
-                        modalName={username}
-                        comments={comments}
-                        setComments={setComments}
+                        username={username}
                         removeCard={removeCard}
                         createCard={createCard}
                         updateCard={updateCard}
                         updateUserName={updateUserName}
+                        addCommentToCard={addCommentToCard}
                     />
                 ))}
             </div>

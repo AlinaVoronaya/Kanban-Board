@@ -3,7 +3,7 @@ import "./AppColumn.scss";
 import {Card} from "./Card/Card";
 import {CardModal} from "../CardModal/CardModal";
 
-export const AppColumn = ({cards, column, title, createCard, removeCard, id, modalName, updateCard, updateUserName, comments, setComments}) => {
+export const AppColumn = ({cards, column, title, createCard, removeCard, id, username, updateCard, updateUserName, addCommentToCard}) => {
 
     const [changeTitle, setChangeTitle] = useState(title);
     const [isEditTitle, setIsEditTitle] = useState(false);
@@ -51,10 +51,9 @@ export const AppColumn = ({cards, column, title, createCard, removeCard, id, mod
                         card={card}
                         removeCard={removeCard}
                         changeTitle={changeTitle}
-                        modalName={modalName}
+                        username={username}
                         updateCard={updateCard}
-                        comments={comments}
-                        setComments={setComments}
+                        addCommentToCard={addCommentToCard}
                     />
                 ))}
             </div>

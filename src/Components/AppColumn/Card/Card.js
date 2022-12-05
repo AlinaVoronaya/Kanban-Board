@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "./Card.scss";
 import {CardDetailsModal} from "../../CardDetailsModal/CardDetailsModal";
 
-export const Card = ({card, removeCard, changeTitle, modalName, updateCard, comments, setComments}) => {
+export const Card = ({card, removeCard, changeTitle, username, updateCard, addCommentToCard}) => {
 
     const [cardDetailsModal, setCardDetailsModal] = useState(false);
 
@@ -24,16 +24,15 @@ export const Card = ({card, removeCard, changeTitle, modalName, updateCard, comm
             </div>
             <div className="card__icons">
                 <button className="card__remove" onClick={() => removeCard(card.id)}>×</button>
-                <div className="card__comments">{comments.length}</div>
+                <div className="card__comments">{card.comments.length}</div>
             </div>
             <CardDetailsModal
                 cardDetailsModal={cardDetailsModal}
                 hideCardDetailsModal={hideCardDetailsModal}
                 card={card}
                 changeTitle={changeTitle}
-                modalName={modalName}
-                comments={comments}
-                setComments={setComments}
+                username={username}
+                addCommentToCard={addCommentToCard}
                 updateCard={updateCard}
             />
         </div>
