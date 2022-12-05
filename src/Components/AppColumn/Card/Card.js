@@ -2,12 +2,9 @@ import React, {useState} from "react";
 import "./Card.scss";
 import {CardDetailsModal} from "../../CardDetailsModal/CardDetailsModal";
 
-export const Card = ({card, removeCard, changeTitle, modalName, updateCard}) => {
+export const Card = ({card, removeCard, changeTitle, modalName, updateCard, comments, setComments}) => {
 
     const [cardDetailsModal, setCardDetailsModal] = useState(false);
-    const [comments, setComments] = useState([]);
-    const [changeCardTitle, setChangeCardTitle] = useState(card.title);
-    const [isEditCardTitle, setIsEditCardTitle] = useState(false);
 
     const showCardDetailsModal = () => {
         setCardDetailsModal(true)

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import './App.scss';
 import {AppColumn} from "./Components/AppColumn/AppColumn";
-import {Modal} from "./Components/Modal/Modal";
+import {UserNameModal} from "./Components/UserNameModal/UserNameModal";
 
 const defaultCards = [
     {
@@ -52,15 +52,39 @@ const defaultColumns = [
 
 function App() {
 
-    const [cards, setCards] = useState(defaultCards);
-    const [columns, setColumns] = useState(defaultColumns);
-    const [modal, setModal] = useState(false);
-    const [modalName, setModalName] = useState('unknown');
+    const [cards, setCards] = useState(
+        JSON.parse(localStorage.getItem("cards")) || defaultCards
+    );
+    const [columns, setColumns] = useState(
+        JSON.parse(localStorage.getItem("columns")) || defaultColumns
+    );
+    const [userNameModalVisible, setUserNameModalVisible] = useState(false);
+    const [username, setUsername] = useState(
+        JSON.parse(localStorage.getItem("username")) || 'unknown'
+    );
+    const [comments, setComments] = useState(
+        JSON.parse(localStorage.getItem("comments")) || []
+    );
+
 
     React.useEffect(() => {
-        setModal(true)
-    }, []);
+        localStorage.setItem("cards", JSON.stringify(cards))
+    }, [cards]);
 
+    React.useEffect(() => {
+        localStorage.setItem("columns", JSON.stringify(columns))
+    }, [columns]);
+
+    React.useEffect(() => {
+        localStorage.setItem("username", JSON.stringify(username))
+    }, [username]);
+    React.useEffect(() => {
+        localStorage.setItem("comments", JSON.stringify(comments))
+    }, [comments]);
+
+    React.useEffect(() => {
+        setUserNameModalVisible(true)
+    }, []);
 
 
     const createCard = (title, text, columnId) => {
@@ -107,7 +131,9 @@ function App() {
                         title={column.title}
                         id={column.id}
                         key={column.id}
-                        modalName={modalName}
+                        modalName={username}
+                        comments={comments}
+                        setComments={setComments}
                         removeCard={removeCard}
                         createCard={createCard}
                         updateCard={updateCard}
@@ -115,10 +141,11 @@ function App() {
                     />
                 ))}
             </div>
-            <Modal
-                modal={modal}
-                setModal={setModal}
-                setModalName={setModalName}
+            <UserNameModal
+                userNameModalVisible={userNameModalVisible}
+                setUserNameModalVisible={setUserNameModalVisible}
+                username={username}
+                setUsername={setUsername}
             />
         </div>
     );

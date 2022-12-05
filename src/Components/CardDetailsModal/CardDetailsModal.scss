@@ -29,13 +29,15 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    border-bottom: rgba(0, 0, 0, 0.2) solid 1px;
+    border-bottom: rgba(0, 0, 0, 0.2) solid 2px;
     padding-bottom: 10px;
   }
   &__content {
-    border-bottom: rgba(0, 0, 0, 0.2) solid 1px;
-    padding-bottom: 20px;
+    border-bottom: rgba(0, 0, 0, 0.2) solid 2px;
     margin-bottom: 20px;
+    &__btn {
+
+    }
   }
   &__title {
     font-size: 20px;
@@ -45,17 +47,24 @@
     border: rgba(170, 171, 171, 0.6) solid 1px;
     border-radius: 5px;
     padding: 5px;
+    display: block;
+    width: 100%;
   }
   &__text {
     border: rgba(170, 171, 171, 0.6) solid 1px;
     border-radius: 5px;
     padding: 5px;
+    margin-bottom: 20px;
+    display: block;
+    width: 100%;
   }
   &__input {
     border: rgba(170, 171, 171, 0.6) solid 1px;
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 20px;
+    display: block;
+    width: 100%;
   }
   &__btn {
     border: rgba(170, 171, 171, 0.6) solid 1px;
