@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import './App.scss';
 import {AppColumn} from "./Components/AppColumn/AppColumn";
 import {UserNameModal} from "./Components/UserNameModal/UserNameModal";
+import {Card} from "./types";
+import {Column} from "./types";
 
 const defaultCards = [
     {
@@ -62,14 +64,25 @@ const defaultColumns = [
 
 function App() {
 
-    const [cards, setCards] = useState(
-        JSON.parse(localStorage.getItem("cards")) || defaultCards
-    );
-    const [columns, setColumns] = useState(
-        JSON.parse(localStorage.getItem("columns")) || defaultColumns
-    );
+    // Создаем новый типизированный массив под карточки
+    // Локалсторедж возвращает нам строчку по ключу "cards" или null. Чтобы в ответ получить точно строку добавляем к нему || '[]'
+    // В получившимся массиве будут либо карточки из локалстроеджа, либо ничего. Если там ничего, то подсовываем туда список
+    // карточек по-умолчанию.
+    let initialCards : Array<Card> = JSON.parse(localStorage.getItem("cards") || '[]')
+    if (initialCards.length == 0) {
+        initialCards = defaultCards
+    }
+    const [cards, setCards] = useState(initialCards);
+
+    let initialColumn : Array<Column> = JSON.parse(localStorage.getItem("columns") || '[]')
+    if (initialColumn.length == 0) {
+        initialColumn = defaultColumns
+    }
+    const [columns, setColumns] = useState(initialColumn);
+
     const [userNameModalVisible, setUserNameModalVisible] = useState(false);
-    const [username, setUsername] = useState(JSON.parse(localStorage.getItem("username")));
+    // TODO: так можно?
+    const [username, setUsername] = useState(JSON.parse(localStorage.getItem("username") as string));
 
 
     React.useEffect(() => {
@@ -85,14 +98,14 @@ function App() {
     }, [username]);
 
     React.useEffect(() => {
-        const value = JSON.parse(localStorage.getItem("username"));
+        const value = JSON.parse(localStorage.getItem("username") as string);
         if (value === "") {
             setUserNameModalVisible(true)
         }
     }, []);
 
 
-    const createCard = (title, text, columnId) => {
+    const createCard = (title: string, text: string, columnId: number) => {
         setCards([{
             id: new Date(),
             title,
@@ -104,14 +117,14 @@ function App() {
         ])
     };
 
-    const updateUserName = (id, title) => {
+    const updateUserName = (id: number, title: string) => {
         const copy = [...columns]
         const current = copy.find(t => t.id === id)
         current.title = title
         setColumns(copy)
     };
 
-    const updateCard = (id, title, text) => {
+    const updateCard = (id: number, title: string, text: string) => {
         const copy = [...cards]
         const current = copy.find(t => t.id === id)
         current.title = title
@@ -119,7 +132,7 @@ function App() {
         setCards(copy)
     };
 
-    const addCommentToCard = (id, text) => {
+    const addCommentToCard = (id: number, text: string) => {
         const copy = [...cards]
         const current = copy.find(t => t.id === id)
         current.comments.push({
@@ -130,11 +143,11 @@ function App() {
         setCards(copy)
     }
 
-    const removeCard = id => {
+    const removeCard = (id: number) => {
         setCards([...cards].filter(t => t.id !== id));
     };
 
-    const filterByColumn = (cards, columnId) => {
+    const filterByColumn = (cards: Card, columnId: number) => {
         return cards.filter(item => item.columnId === columnId)
     }
 

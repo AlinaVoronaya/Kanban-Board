@@ -10,7 +10,7 @@ export const UserNameModal = ({userNameModalVisible, setUserNameModalVisible, se
         setUsername(title);
         setUserNameModalVisible(false);
     }
-
+ 
     return (
         <div className={userNameModalVisible ? "modal active" : "modal"}>
             <form className="modal__content" onClick={e => e.stopPropagation()} onSubmit={onSubmit}>

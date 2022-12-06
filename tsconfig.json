@@ -1,0 +1,9 @@
+{
+  "include": ["src", "index.d.ts"],
+  "exclude": ["node-modules", "dist"],
+  "compilerOptions": {
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true
+  }
+}
