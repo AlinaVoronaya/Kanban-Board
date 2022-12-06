@@ -1,8 +1,18 @@
 import React, {useState} from "react";
 import "./Card.scss";
 import {CardDetailsModal} from "../../CardDetailsModal/CardDetailsModal";
+import {CardType} from "../../../types";
 
-export const Card = ({card, removeCard, changeTitle, username, updateCard, addCommentToCard}) => {
+type CardProps = {
+    card: CardType,
+    removeCard: (id: number) => void,
+    changeTitle: string,
+    username: string,
+    updateCard: (id: number, title: string, text: string) => void,
+    addCommentToCard: (id: number, text: string) => void
+}
+
+export const Card = ({card, removeCard, changeTitle, username, updateCard, addCommentToCard}: CardProps) => {
 
     const [cardDetailsModal, setCardDetailsModal] = useState(false);
 

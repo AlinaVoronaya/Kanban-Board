@@ -1,16 +1,23 @@
-import React, {useState} from "react";
+import React, {Dispatch, SetStateAction, useState} from "react";
 import "./UserNameModal.scss";
 
-export const UserNameModal = ({userNameModalVisible, setUserNameModalVisible, setUsername}) => {
+
+type UserNameModalProps = {
+    userNameModalVisible: boolean,
+    setUserNameModalVisible: Dispatch<SetStateAction<boolean>>,
+    setUsername: Dispatch<any>
+}
+
+export const UserNameModal = ({userNameModalVisible, setUserNameModalVisible, setUsername}: UserNameModalProps) => {
 
     const [title, setTitle] = useState("");
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setUsername(title);
         setUserNameModalVisible(false);
     }
- 
+
     return (
         <div className={userNameModalVisible ? "modal active" : "modal"}>
             <form className="modal__content" onClick={e => e.stopPropagation()} onSubmit={onSubmit}>

@@ -1,7 +1,14 @@
 import React, {useState} from "react";
 import "./CardModal.scss";
 
-export const CardModal = ({cardModal, hideModal, createCard, columnId}) => {
+type CardModalProps = {
+    cardModal: boolean,
+    hideModal: () => void,
+    createCard: (title: string, text: string, columnId: number) => void,
+    columnId: number
+}
+
+export const CardModal = ({cardModal, hideModal, createCard, columnId}: CardModalProps) => {
 
     const [title, setTitle] = useState('');
     const [text, setText] = useState('');

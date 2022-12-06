@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import './App.scss';
 import {AppColumn} from "./Components/AppColumn/AppColumn";
 import {UserNameModal} from "./Components/UserNameModal/UserNameModal";
-import {Card} from "./types";
-import {Column} from "./types";
+import {CardType} from "./types";
+import {ColumnType} from "./types";
 
 const defaultCards = [
     {
@@ -68,13 +68,13 @@ function App() {
     // Локалсторедж возвращает нам строчку по ключу "cards" или null. Чтобы в ответ получить точно строку добавляем к нему || '[]'
     // В получившимся массиве будут либо карточки из локалстроеджа, либо ничего. Если там ничего, то подсовываем туда список
     // карточек по-умолчанию.
-    let initialCards : Array<Card> = JSON.parse(localStorage.getItem("cards") || '[]')
+    let initialCards : Array<CardType> = JSON.parse(localStorage.getItem("cards") || '[]')
     if (initialCards.length == 0) {
         initialCards = defaultCards
     }
     const [cards, setCards] = useState(initialCards);
 
-    let initialColumn : Array<Column> = JSON.parse(localStorage.getItem("columns") || '[]')
+    let initialColumn : Array<ColumnType> = JSON.parse(localStorage.getItem("columns") || '[]')
     if (initialColumn.length == 0) {
         initialColumn = defaultColumns
     }
@@ -99,7 +99,7 @@ function App() {
 
     React.useEffect(() => {
         const value = JSON.parse(localStorage.getItem("username") as string);
-        if (value === "") {
+        if (value === "" || value === null) {
             setUserNameModalVisible(true)
         }
     }, []);
@@ -107,7 +107,7 @@ function App() {
 
     const createCard = (title: string, text: string, columnId: number) => {
         setCards([{
-            id: new Date(),
+            id: new Date().getTime(),
             title,
             text,
             comments: [],
@@ -120,23 +120,23 @@ function App() {
     const updateUserName = (id: number, title: string) => {
         const copy = [...columns]
         const current = copy.find(t => t.id === id)
-        current.title = title
+        current!.title = title
         setColumns(copy)
     };
 
     const updateCard = (id: number, title: string, text: string) => {
         const copy = [...cards]
         const current = copy.find(t => t.id === id)
-        current.title = title
-        current.text = text
+        current!.title = title
+        current!.text = text
         setCards(copy)
     };
 
     const addCommentToCard = (id: number, text: string) => {
         const copy = [...cards]
         const current = copy.find(t => t.id === id)
-        current.comments.push({
-            id: new Date(),
+        current!.comments.push({
+            id: new Date().getTime(),
             username,
             text
         })
@@ -147,7 +147,7 @@ function App() {
         setCards([...cards].filter(t => t.id !== id));
     };
 
-    const filterByColumn = (cards: Card, columnId: number) => {
+    const filterByColumn = (cards: Array<CardType>, columnId: number) => {
         return cards.filter(item => item.columnId === columnId)
     }
 
@@ -173,7 +173,6 @@ function App() {
             <UserNameModal
                 userNameModalVisible={userNameModalVisible}
                 setUserNameModalVisible={setUserNameModalVisible}
-                username={username}
                 setUsername={setUsername}
             />
         </div>

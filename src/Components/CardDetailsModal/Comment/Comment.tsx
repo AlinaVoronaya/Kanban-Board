@@ -1,7 +1,12 @@
 import React from "react";
 import "./Comment.scss";
+import {CommentType} from "../../../types";
 
-export const Comment = ({comment}) => {
+type CommentProps = {
+    comment: CommentType
+}
+
+export const Comment = ({comment}: CommentProps) => {
     return (
         <div className="comment">
             <div className="comment__line"></div>

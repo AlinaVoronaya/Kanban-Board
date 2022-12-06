@@ -1,8 +1,19 @@
 import React, {useState} from "react";
 import "./CardDetailsModal.scss";
 import {Comment} from "./Comment/Comment";
+import {CardType} from "../../types";
 
-export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, changeTitle, username, updateCard, addCommentToCard}) => {
+type CardDetailsModalProps = {
+    cardDetailsModal: boolean,
+    hideCardDetailsModal: () => void,
+    card: CardType,
+    changeTitle: string,
+    username: string,
+    updateCard: (id: number, title: string, text: string) => void,
+    addCommentToCard: (id: number, text: string) => void
+}
+
+export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, changeTitle, username, updateCard, addCommentToCard}: CardDetailsModalProps) => {
 
     const [commentText, setCommentText] = useState('');
     const [cardTitle, setCardTitle] = useState(card.title);
@@ -13,7 +24,7 @@ export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, 
         setCommentText('')
     }
 
-    const onCardSubmit = (e) => {
+    const onCardSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         updateCard(card.id, cardTitle, cardText);
     }
@@ -29,7 +40,7 @@ export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, 
                     </div>
                     <form className="card-details-modal__content" onSubmit={onCardSubmit}>
                         <input type="text" name="title" className="card-details-modal__title" required value={cardTitle} onChange={e => setCardTitle(e.target.value)}/>
-                        <textarea rows="3" name="text" className="card-details-modal__text" required value={cardText} onChange={e => setCardText(e.target.value)}/>
+                        <textarea rows={3} name="text" className="card-details-modal__text" required value={cardText} onChange={e => setCardText(e.target.value)}/>
                         <button type="submit" className="card-details-modal__btn card-details-modal__content__btn">Save</button>
                     </form>
                     <div className="card-details-modal__comment">
