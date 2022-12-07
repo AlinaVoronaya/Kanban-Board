@@ -75,7 +75,7 @@ export const AppColumn = ({cards, column, title, createCard, removeCard, id, use
             <button className="column__add-card" onClick={() => showCardModal()}>+ Add Card</button>
             <CardModal
                 cardModal={cardModal}
-                hideModal={hideCardModal}
+                hideCardModal={hideCardModal}
                 createCard={createCard}
                 columnId={id}
             />

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {DetailedHTMLProps, InputHTMLAttributes, useState} from "react";
 import "./Card.scss";
 import {CardDetailsModal} from "../../CardDetailsModal/CardDetailsModal";
 import {CardType} from "../../../types";
@@ -23,6 +23,19 @@ export const Card = ({card, removeCard, changeTitle, username, updateCard, addCo
     const hideCardDetailsModal = () => {
         setCardDetailsModal(false)
     }
+
+    const onKeyDown = (e: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) => {
+        if (e.key === "Escape") {
+            hideCardDetailsModal();
+        }
+    }
+
+    React.useEffect(() => {
+        document.addEventListener("keydown", onKeyDown, false);
+        return () => {
+            document.removeEventListener("keydown", onKeyDown, false);
+        }
+    }, []);
 
     let cardTitle = card.title;
 

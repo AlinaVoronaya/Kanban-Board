@@ -12,6 +12,8 @@
   pointer-events: none;
   transition: 0.5s;
   &__wrapper {
+    max-height: 100vh;
+    overflow-y: auto;
     padding: 20px;
     border-radius: 10px;
     background-color: #fff;

@@ -29,6 +29,7 @@ export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, 
         updateCard(card.id, cardTitle, cardText);
     }
 
+
     return (
         <div className={cardDetailsModal ? "card-details-modal active" : "card-details-modal"}
              onClick={() => hideCardDetailsModal()}>

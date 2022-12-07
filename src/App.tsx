@@ -147,6 +147,12 @@ function App() {
         setCards([...cards].filter(t => t.id !== id));
     };
 
+    //TODO удалить комментарий и изменить
+    const removeComment = (id: number) => {
+        setCards([...cards].filter(t => t.id !== id));
+    };
+
+
     const filterByColumn = (cards: Array<CardType>, columnId: number) => {
         return cards.filter(item => item.columnId === columnId)
     }
