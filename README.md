@@ -14,6 +14,7 @@ React, TypeScript, JavaScript, SCSS, Html
 
 ### GitHub Pages
 
+https://alinavoronaya.github.io/Kanban-Board/
 
 ![Screenshot_1](https://user-images.githubusercontent.com/87168061/206144359-051489cf-3f74-4020-b419-4cfcae9c17ad.png)
 
