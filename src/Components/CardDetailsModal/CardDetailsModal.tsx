@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import "./CardDetailsModal.scss";
-import {Comment} from "./Comment/Comment";
+import {Comment} from "../Comment/Comment";
 import {CardType} from "../../types";
 
 type CardDetailsModalProps = {
     cardDetailsModal: boolean,
     hideCardDetailsModal: () => void,
     card: CardType,
-    changeTitle: string,
+    columnTitle: string,
     username: string,
     updateCard: (id: number, title: string, text: string) => void,
     addCommentToCard: (id: number, text: string) => void,
@@ -15,7 +15,7 @@ type CardDetailsModalProps = {
     removeComment: (cardId: number, commentId: number) => void
 }
 
-export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, changeTitle, username, updateCard, addCommentToCard, updateComment, removeComment}: CardDetailsModalProps) => {
+export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, columnTitle, username, updateCard, addCommentToCard, updateComment, removeComment}: CardDetailsModalProps) => {
 
     const [commentText, setCommentText] = useState('');
     const [cardTitle, setCardTitle] = useState(card.title);
@@ -38,7 +38,7 @@ export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, 
             <div className="card-details-modal__wrapper" onClick={e => e.stopPropagation()}>
                 <div className="card-details-modal__main">
                     <div className="card-details-modal__header">
-                        <p>в колонке: {changeTitle}</p>
+                        <p>в колонке: {columnTitle}</p>
                         <p>автор: {username}</p>
                     </div>
                     <form className="card-details-modal__content" onSubmit={onCardSubmit}>

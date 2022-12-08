@@ -1,6 +1,6 @@
 import React, {DetailedHTMLProps, InputHTMLAttributes, useState} from "react";
 import "./Comment.scss";
-import {CommentType} from "../../../types";
+import {CommentType} from "../../types";
 
 type CommentProps = {
     comment: CommentType,

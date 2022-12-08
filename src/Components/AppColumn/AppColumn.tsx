@@ -1,6 +1,6 @@
 import React, {DetailedHTMLProps, InputHTMLAttributes, useState} from "react";
 import "./AppColumn.scss";
-import {Card} from "./Card/Card";
+import {Card} from "../Card/Card";
 import {CardModal} from "../CardModal/CardModal";
 import {CardType} from "../../types";
 import {ColumnType} from "../../types";
@@ -8,21 +8,19 @@ import {ColumnType} from "../../types";
 type AppColumnProps = {
     cards: Array<CardType>,
     column: ColumnType,
-    title: string,
     createCard: (title: string, text: string, columnId: number) => void,
     removeCard: (id: number) => void,
-    id: number,
     username: string,
     updateCard: (id: number, title: string, text: string) => void,
-    updateUserName: (id: number, title: string) => void,
+    updateColumnTitle: (id: number, title: string) => void,
     addCommentToCard: (id: number, text: string) => void,
     updateComment: (cardId: number, commentId: number, text: string) => void,
     removeComment: (cardId: number, commentId: number) => void
 }
 
-export const AppColumn = ({cards, column, title, createCard, removeCard, id, username, updateCard, updateUserName, addCommentToCard, updateComment, removeComment}: AppColumnProps) => {
+export const AppColumn = ({cards, column, createCard, removeCard, username, updateCard, updateColumnTitle, addCommentToCard, updateComment, removeComment}: AppColumnProps) => {
 
-    const [changeTitle, setChangeTitle] = useState(title);
+    const [title, setTitle] = useState(column.title);
     const [isEditTitle, setIsEditTitle] = useState(false);
     const [cardModal, setCardModal] = useState(false);
 
@@ -34,25 +32,23 @@ export const AppColumn = ({cards, column, title, createCard, removeCard, id, use
         setCardModal(false)
     }
 
-    let columnTitle;
-
     const onKeyDown = (e: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) => {
         if (e.key === "Enter") {
-            updateUserName(column.id, changeTitle);
+            updateColumnTitle(column.id, title);
             setIsEditTitle(false);
         }
     }
 
+    let columnTitle = <div onClick={() => setIsEditTitle(true)}>{title}</div>;
+
     if (isEditTitle) {
         columnTitle = <input
             autoFocus
-            value={changeTitle}
-            onChange={e => setChangeTitle(e.target.value)}
+            value={title}
+            onChange={e => setTitle(e.target.value)}
             // onBlur={() => setIsEditTitle(false)}
             onKeyDown={onKeyDown}
             className="column__input"/>
-    } else {
-        columnTitle = <div onClick={() => setIsEditTitle(true)}>{changeTitle}</div>
     }
 
 
@@ -67,7 +63,7 @@ export const AppColumn = ({cards, column, title, createCard, removeCard, id, use
                         key={card.id}
                         card={card}
                         removeCard={removeCard}
-                        changeTitle={changeTitle}
+                        columnTitle={title}
                         username={username}
                         updateCard={updateCard}
                         addCommentToCard={addCommentToCard}
@@ -81,7 +77,7 @@ export const AppColumn = ({cards, column, title, createCard, removeCard, id, use
                 cardModal={cardModal}
                 hideCardModal={hideCardModal}
                 createCard={createCard}
-                columnId={id}
+                columnId={column.id}
             />
         </div>
     )

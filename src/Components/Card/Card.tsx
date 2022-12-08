@@ -1,12 +1,12 @@
 import React, {DetailedHTMLProps, InputHTMLAttributes, useState} from "react";
 import "./Card.scss";
-import {CardDetailsModal} from "../../CardDetailsModal/CardDetailsModal";
-import {CardType} from "../../../types";
+import {CardDetailsModal} from "../CardDetailsModal/CardDetailsModal";
+import {CardType} from "../../types";
 
 type CardProps = {
     card: CardType,
     removeCard: (id: number) => void,
-    changeTitle: string,
+    columnTitle: string,
     username: string,
     updateCard: (id: number, title: string, text: string) => void,
     addCommentToCard: (id: number, text: string) => void,
@@ -14,7 +14,7 @@ type CardProps = {
     removeComment: (cardId: number, commentId: number) => void
 }
 
-export const Card = ({card, removeCard, changeTitle, username, updateCard, addCommentToCard, updateComment, removeComment}: CardProps) => {
+export const Card = ({card, removeCard, columnTitle, username, updateCard, addCommentToCard, updateComment, removeComment}: CardProps) => {
 
     const [cardDetailsModal, setCardDetailsModal] = useState(false);
 
@@ -55,7 +55,7 @@ export const Card = ({card, removeCard, changeTitle, username, updateCard, addCo
                 cardDetailsModal={cardDetailsModal}
                 hideCardDetailsModal={hideCardDetailsModal}
                 card={card}
-                changeTitle={changeTitle}
+                columnTitle={columnTitle}
                 username={username}
                 addCommentToCard={addCommentToCard}
                 updateCard={updateCard}

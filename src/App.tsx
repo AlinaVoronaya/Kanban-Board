@@ -81,7 +81,7 @@ function App() {
     const [columns, setColumns] = useState(initialColumn);
 
     const [userNameModalVisible, setUserNameModalVisible] = useState(false);
-    // TODO: так можно?
+
     const [username, setUsername] = useState(JSON.parse(localStorage.getItem("username") as string));
 
 
@@ -117,7 +117,7 @@ function App() {
         ])
     };
 
-    const updateUserName = (id: number, title: string) => {
+    const updateColumnTitle = (id: number, title: string) => {
         const copy = [...columns]
         const current = copy.find(t => t.id === id)
         current!.title = title
@@ -174,14 +174,12 @@ function App() {
                     <AppColumn
                         cards={filterByColumn(cards, column.id)}
                         column={column}
-                        title={column.title}
-                        id={column.id}
                         key={column.id}
                         username={username}
                         removeCard={removeCard}
                         createCard={createCard}
                         updateCard={updateCard}
-                        updateUserName={updateUserName}
+                        updateColumnTitle={updateColumnTitle}
                         addCommentToCard={addCommentToCard}
                         updateComment={updateComment}
                         removeComment={removeComment}
