@@ -15,10 +15,12 @@ type AppColumnProps = {
     username: string,
     updateCard: (id: number, title: string, text: string) => void,
     updateUserName: (id: number, title: string) => void,
-    addCommentToCard: (id: number, text: string) => void
+    addCommentToCard: (id: number, text: string) => void,
+    updateComment: (cardId: number, commentId: number, text: string) => void,
+    removeComment: (cardId: number, commentId: number) => void
 }
 
-export const AppColumn = ({cards, column, title, createCard, removeCard, id, username, updateCard, updateUserName, addCommentToCard}: AppColumnProps) => {
+export const AppColumn = ({cards, column, title, createCard, removeCard, id, username, updateCard, updateUserName, addCommentToCard, updateComment, removeComment}: AppColumnProps) => {
 
     const [changeTitle, setChangeTitle] = useState(title);
     const [isEditTitle, setIsEditTitle] = useState(false);
@@ -46,7 +48,7 @@ export const AppColumn = ({cards, column, title, createCard, removeCard, id, use
             autoFocus
             value={changeTitle}
             onChange={e => setChangeTitle(e.target.value)}
-            onBlur={() => setIsEditTitle(false)}
+            // onBlur={() => setIsEditTitle(false)}
             onKeyDown={onKeyDown}
             className="column__input"/>
     } else {
@@ -69,6 +71,8 @@ export const AppColumn = ({cards, column, title, createCard, removeCard, id, use
                         username={username}
                         updateCard={updateCard}
                         addCommentToCard={addCommentToCard}
+                        updateComment={updateComment}
+                        removeComment={removeComment}
                     />
                 ))}
             </div>

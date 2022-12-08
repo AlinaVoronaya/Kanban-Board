@@ -9,10 +9,12 @@ type CardProps = {
     changeTitle: string,
     username: string,
     updateCard: (id: number, title: string, text: string) => void,
-    addCommentToCard: (id: number, text: string) => void
+    addCommentToCard: (id: number, text: string) => void,
+    updateComment: (cardId: number, commentId: number, text: string) => void,
+    removeComment: (cardId: number, commentId: number) => void
 }
 
-export const Card = ({card, removeCard, changeTitle, username, updateCard, addCommentToCard}: CardProps) => {
+export const Card = ({card, removeCard, changeTitle, username, updateCard, addCommentToCard, updateComment, removeComment}: CardProps) => {
 
     const [cardDetailsModal, setCardDetailsModal] = useState(false);
 
@@ -57,6 +59,8 @@ export const Card = ({card, removeCard, changeTitle, username, updateCard, addCo
                 username={username}
                 addCommentToCard={addCommentToCard}
                 updateCard={updateCard}
+                updateComment={updateComment}
+                removeComment={removeComment}
             />
         </div>
     )

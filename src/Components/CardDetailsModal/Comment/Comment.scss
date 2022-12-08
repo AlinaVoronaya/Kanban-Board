@@ -1,7 +1,11 @@
 .comment {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
   margin-bottom: 20px;
+  &__wrapper {
+    display: flex;
+    gap: 10px;
+  }
   &__line {
     width: 3px;
     border-radius: 5px;
@@ -14,5 +18,8 @@
     border: rgba(170, 171, 171, 0.6) solid 1px;
     border-radius: 5px;
     padding: 10px;
+  }
+  &__icons {
+    cursor: pointer;
   }
 }

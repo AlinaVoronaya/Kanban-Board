@@ -10,10 +10,12 @@ type CardDetailsModalProps = {
     changeTitle: string,
     username: string,
     updateCard: (id: number, title: string, text: string) => void,
-    addCommentToCard: (id: number, text: string) => void
+    addCommentToCard: (id: number, text: string) => void,
+    updateComment: (cardId: number, commentId: number, text: string) => void,
+    removeComment: (cardId: number, commentId: number) => void
 }
 
-export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, changeTitle, username, updateCard, addCommentToCard}: CardDetailsModalProps) => {
+export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, changeTitle, username, updateCard, addCommentToCard, updateComment, removeComment}: CardDetailsModalProps) => {
 
     const [commentText, setCommentText] = useState('');
     const [cardTitle, setCardTitle] = useState(card.title);
@@ -51,6 +53,9 @@ export const CardDetailsModal = ({cardDetailsModal, hideCardDetailsModal, card, 
                             <Comment
                                 key={comment.id}
                                 comment={comment}
+                                cardId={card.id}
+                                updateComment={updateComment}
+                                removeComment={removeComment}
                             />
                         ))}
                     </div>

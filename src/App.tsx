@@ -132,6 +132,14 @@ function App() {
         setCards(copy)
     };
 
+    const updateComment = (cardId: number, commentId: number, text: string) => {
+        const copy = [...cards]
+        const card = copy.find(t => t.id === cardId)
+        const comment = card!.comments.find(t => t.id === commentId)
+        comment!.text = text
+        setCards(copy)
+    };
+
     const addCommentToCard = (id: number, text: string) => {
         const copy = [...cards]
         const current = copy.find(t => t.id === id)
@@ -147,9 +155,11 @@ function App() {
         setCards([...cards].filter(t => t.id !== id));
     };
 
-    //TODO удалить комментарий и изменить
-    const removeComment = (id: number) => {
-        setCards([...cards].filter(t => t.id !== id));
+    const removeComment = (cardId: number, commentId: number) => {
+        const copy = [...cards]
+        const card = copy.find(t => t.id === cardId)
+        card!.comments = card!.comments.filter(t => t.id !== commentId)
+        setCards(copy);
     };
 
 
@@ -173,6 +183,8 @@ function App() {
                         updateCard={updateCard}
                         updateUserName={updateUserName}
                         addCommentToCard={addCommentToCard}
+                        updateComment={updateComment}
+                        removeComment={removeComment}
                     />
                 ))}
             </div>
