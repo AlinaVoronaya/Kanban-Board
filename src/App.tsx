@@ -66,7 +66,7 @@ function App() {
 
     // Создаем новый типизированный массив под карточки
     // Локалсторедж возвращает нам строчку по ключу "cards" или null. Чтобы в ответ получить точно строку добавляем к нему || '[]'
-    // В получившимся массиве будут либо карточки из локалстроеджа, либо ничего. Если там ничего, то подсовываем туда список
+    // В получившимся массиве будут либо карточки из локалстореджа, либо ничего. Если там ничего, то подсовываем туда список
     // карточек по-умолчанию.
     let initialCards : Array<CardType> = JSON.parse(localStorage.getItem("cards") || '[]')
     if (initialCards.length == 0) {
@@ -187,8 +187,8 @@ function App() {
                 ))}
             </div>
             <UserNameModal
-                userNameModalVisible={userNameModalVisible}
-                setUserNameModalVisible={setUserNameModalVisible}
+                visible={userNameModalVisible}
+                setVisible={setUserNameModalVisible}
                 setUsername={setUsername}
             />
         </div>

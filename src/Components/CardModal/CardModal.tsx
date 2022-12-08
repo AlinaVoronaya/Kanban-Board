@@ -2,13 +2,13 @@ import React, {useState} from "react";
 import "./CardModal.scss";
 
 type CardModalProps = {
-    cardModal: boolean,
+    visible: boolean,
     hideCardModal: () => void,
     createCard: (title: string, text: string, columnId: number) => void,
     columnId: number
 }
 
-export const CardModal = ({cardModal, hideCardModal, createCard, columnId}: CardModalProps) => {
+export const CardModal = ({visible, hideCardModal, createCard, columnId}: CardModalProps) => {
 
     const [title, setTitle] = useState('');
     const [text, setText] = useState('');
@@ -21,7 +21,7 @@ export const CardModal = ({cardModal, hideCardModal, createCard, columnId}: Card
     }
 
     return (
-        <div className={cardModal ? "card-modal active" : "card-modal"} onClick={() => hideCardModal()}>
+        <div className={visible ? "card-modal active" : "card-modal"} onClick={() => hideCardModal()}>
             <div className="card-modal__wrapper" onClick={e => e.stopPropagation()}>
                 <div className="card-modal__content">
                     <h2 className="card-modal__title">Enter Title:</h2>
